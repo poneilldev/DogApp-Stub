@@ -12,7 +12,7 @@ extension ContentView {
     class ViewModel: ObservableObject {
         let service: DogServiceProtocol
         @Published var searchText = ""
-        @Published var searchedBreeds: [Breed] = []
+        @Published private(set) var searchedBreeds: [Breed] = []
         
         @Published private(set) var breeds: [Breed] = []
         @Published private(set) var isLoading: Bool = false
@@ -40,11 +40,11 @@ extension ContentView {
         }
         
         func sortBreeds() {
-            
+            // TODO: Write Sorting methods
         }
         
         func filterResults() {
-            
+            // TODO: Write filter logic
         }
     }
 }
