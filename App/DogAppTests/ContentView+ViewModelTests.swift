@@ -131,10 +131,6 @@ class ContentView_ViewModelTests: XCTestCase {
         sut.filterResults()
 
         XCTAssertTrue(sut.searchedBreeds.isEmpty)
-        
-//        XCTAssertTrue(sut.searchedBreeds.contains(Breed(name: "Beagle", subBreeds: [])))
-//        XCTAssertTrue(sut.searchedBreeds.contains(Breed(name: "Hound", subBreeds: [])))
-//        XCTAssertTrue(sut.searchedBreeds.contains(Breed(name: "African", subBreeds: [])))
     }
 }
 
