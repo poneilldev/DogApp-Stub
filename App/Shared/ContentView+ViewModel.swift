@@ -40,19 +40,11 @@ extension ContentView {
         }
         
         func sortBreeds() {
-            //sort from A to Z
-            self.breeds = self.breeds.sorted { $0.name < $1.name }
-            self.searchedBreeds = self.searchedBreeds.sorted { $0.name < $1.name }
+            
         }
         
         func filterResults() {
-            guard !searchText.isEmpty else {
-                self.searchedBreeds = self.breeds
-                return
-            }
             
-            let tempBreeds = self.searchedBreeds.filter( { $0.name.contains( searchText.lowercased() )} )
-            self.searchedBreeds = tempBreeds
         }
     }
 }

@@ -22,10 +22,11 @@ struct ContentView: View {
                                 DogCellView(breed: breed)
                             }
                         }
-                    }.searchable(text: self.$viewModel.searchText)
-                        .onChange(of: self.viewModel.searchText) { newValue in
-                            self.viewModel.filterResults()
-                        }
+                    }
+                    .searchable(text: self.$viewModel.searchText)
+                    .onChange(of: self.viewModel.searchText) { newValue in
+                        self.viewModel.filterResults()
+                    }
                 }
             }
             .listStyle(.insetGrouped)
@@ -40,8 +41,6 @@ struct DogCellView: View {
     var body: some View {
         Text(breed.name)
     }
-    
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
