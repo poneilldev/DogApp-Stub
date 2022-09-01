@@ -17,15 +17,11 @@ struct ContentView: View {
                     ProgressView()
                 } else {
                     List {
-                      ForEach(self.viewModel.searchedBreeds, id: \.name) { breed in
+                      ForEach(self.viewModel.breeds, id: \.name) { breed in
                             NavigationLink(destination: DogDetails(breed: breed)) {
                                 DogCellView(breed: breed)
                             }
                         }
-                    }
-                    .searchable(text: self.$viewModel.searchText)
-                    .onChange(of: self.viewModel.searchText) { newValue in
-                        self.viewModel.filterResults()
                     }
                 }
             }

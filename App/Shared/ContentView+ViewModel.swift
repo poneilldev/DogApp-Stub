@@ -11,14 +11,12 @@ extension ContentView {
     @MainActor
     class ViewModel: ObservableObject {
         let service: DogServiceProtocol
-        @Published var searchText = ""
-        @Published private(set) var searchedBreeds: [Breed] = []
         
         @Published private(set) var breeds: [Breed] = []
         @Published private(set) var isLoading: Bool = false
         @Published private(set) var error: Error?
         
-        init(_ service: DogServiceProtocol) {
+        init(_ service: DogServiceProtocol = DogService()) {
             self.service = service
             Task {
                 await self.loadAllBreeds()
@@ -30,7 +28,6 @@ extension ContentView {
             do {
                 let resource = try await service.getAllBreeds()
                 self.breeds = resource.breeds
-                self.searchedBreeds = resource.breeds
                 self.sortBreeds()
             } catch let err {
                 self.error = err

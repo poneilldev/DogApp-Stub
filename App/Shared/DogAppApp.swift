@@ -11,7 +11,7 @@ import SwiftUI
 struct DogAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: ContentView.ViewModel(DogService()))
+            ContentView(viewModel: .init())
         }
     }
 }
