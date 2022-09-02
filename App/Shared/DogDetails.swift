@@ -12,9 +12,15 @@ struct DogDetails: View {
     let breed: Breed
     
     var body: some View {
-        List {
-            ForEach(breed.subBreeds, id: \.self) { subBreed in
-                Text(subBreed)
+        VStack {
+            if breed.subBreeds.isEmpty {
+                Text("No Sub Breeds")
+            } else {
+                List {
+                    ForEach(breed.subBreeds, id: \.self) { subBreed in
+                        Text(subBreed)
+                    }
+                }
             }
         }
         .navigationTitle(breed.name)

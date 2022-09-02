@@ -10,30 +10,24 @@ import Foundation
 extension ContentView {
     @MainActor
     class ViewModel: ObservableObject {
-        let service: DogServiceProtocol
+        let service: DogService
         
         @Published private(set) var breeds: [Breed] = []
-        @Published private(set) var isLoading: Bool = false
-        @Published private(set) var error: Error?
+        @Published private(set) var state: State = .loading
         
-        init(_ service: DogServiceProtocol = DogService()) {
+        init(_ service: DogService = .init()) {
             self.service = service
-            Task {
-                await self.loadAllBreeds()
-            }
         }
         
         func loadAllBreeds() async {
-            self.isLoading = true
+            self.state = .loading
             do {
                 let resource = try await service.getAllBreeds()
                 self.breeds = resource.breeds
-                self.sortBreeds()
+                self.state = .loaded(results: self.breeds)
             } catch let err {
-                self.error = err
+                self.state = .error(err)
             }
-            
-            self.isLoading = false
         }
         
         func sortBreeds() {
@@ -43,5 +37,14 @@ extension ContentView {
         func filterResults() {
             // TODO: Write filter logic
         }
+    }
+}
+
+extension ContentView {
+    enum State {
+        case loaded(results: [Breed])
+        case loading
+        case error(Error)
+        case empty(String)
     }
 }

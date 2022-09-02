@@ -13,20 +13,36 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if self.viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    List {
-                      ForEach(self.viewModel.breeds, id: \.name) { breed in
-                            NavigationLink(destination: DogDetails(breed: breed)) {
-                                DogCellView(breed: breed)
+                switch self.viewModel.state {
+                    case .loading:
+                        ProgressView()
+                            .task {
+                                await self.viewModel.loadAllBreeds()
                             }
-                        }
-                    }
+                    case .loaded(let breeds):
+                        DogListView(breeds: breeds)
+                    case .empty(let message):
+                        Text(message)
+                    case .error(let error):
+                        Text(error.localizedDescription)
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("Dogs")
+            .navigationTitle("Dog Breeds")
+        }
+    }
+}
+
+struct DogListView: View {
+    let breeds: [Breed]
+    
+    var body: some View {
+        List {
+          ForEach(breeds, id: \.name) { breed in
+                NavigationLink(destination: DogDetails(breed: breed)) {
+                    DogCellView(breed: breed)
+                }
+            }
         }
     }
 }
