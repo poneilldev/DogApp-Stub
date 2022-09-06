@@ -25,6 +25,7 @@
 		0B49B64F28ABF12C0029F519 /* ContentView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B49B64D28ABF12C0029F519 /* ContentView+ViewModel.swift */; };
 		0B49B65928AC13920029F519 /* DogDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B49B65828AC13920029F519 /* DogDetails.swift */; };
 		0B49B65A28AC13920029F519 /* DogDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B49B65828AC13920029F519 /* DogDetails.swift */; };
+		0B5E708D28C7D36C007A61A6 /* MockDogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5E708C28C7D36C007A61A6 /* MockDogService.swift */; };
 		0B7A9CD628AC1FC100A4EDD6 /* ContentView+ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7A9CD528AC1FC100A4EDD6 /* ContentView+ViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		0B49B64A28ABEBAA0029F519 /* BreedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedImage.swift; sourceTree = "<group>"; };
 		0B49B64D28ABF12C0029F519 /* ContentView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+ViewModel.swift"; sourceTree = "<group>"; };
 		0B49B65828AC13920029F519 /* DogDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetails.swift; sourceTree = "<group>"; };
+		0B5E708C28C7D36C007A61A6 /* MockDogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDogService.swift; sourceTree = "<group>"; };
 		0B7A9CCC28AC1FA200A4EDD6 /* DogAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DogAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B7A9CD528AC1FC100A4EDD6 /* ContentView+ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+ViewModelTests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				0B7A9CD528AC1FC100A4EDD6 /* ContentView+ViewModelTests.swift */,
+				0B5E708C28C7D36C007A61A6 /* MockDogService.swift */,
 			);
 			path = DogAppTests;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B5E708D28C7D36C007A61A6 /* MockDogService.swift in Sources */,
 				0B7A9CD628AC1FC100A4EDD6 /* ContentView+ViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,7 +515,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.paul.DogApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apple.radar.interview.DogApp;
 				PRODUCT_NAME = DogApp;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -541,7 +545,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.paul.DogApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apple.radar.interview.DogApp;
 				PRODUCT_NAME = DogApp;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;

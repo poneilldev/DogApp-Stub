@@ -9,7 +9,6 @@ import Foundation
 
 protocol DogServiceProtocol {
     func getAllBreeds() async throws -> [Breed]
-    func getSubBreed(for breed: Breed) async throws -> [Breed]
 }
 
 /// The service for getting all the different types of breeds of dogs.
@@ -20,15 +19,9 @@ struct DogService: DogServiceProtocol {
     /// - Returns: An array of all available breeds.
     func getAllBreeds() async throws -> [Breed] {
         let url = URL(string: Self.endpoint.appending("breeds/list/all"))!
-        // TODO: Implement
-        return []
-    }
-    
-    /// This method makes a network call to retreive all breeds.
-    /// - Parameter breed: The parent breed.
-    /// - Returns: An array of sub breeds for the parent breed.
-    func getSubBreed(for breed: Breed) async throws -> [Breed] {
-        let url = URL(string: Self.endpoint.appending("breed/\(breed.name)/list"))!
-        return []
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decoder = JSONDecoder()
+        let resource = try decoder.decode(BreedResource.self, from: data)
+        return resource.breeds
     }
 }

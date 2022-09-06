@@ -10,25 +10,39 @@ import Foundation
 extension ContentView {
     @MainActor
     class ViewModel: ObservableObject {
-        let service: DogService
+        let service: DogServiceProtocol
         
         /// All the breeds available.
         @Published private(set) var breeds: [Breed] = []
         /// The state of the view.
         @Published private(set) var state: State = .loading
         
-        init(_ service: DogService = .init()) {
+        init(_ service: DogServiceProtocol = DogService()) {
             self.service = service
         }
         
         /// Make a call to Dog Service to get all of the breeds.
         func loadAllBreeds() async {
-            // TODO: Implement method
+            do {
+                let breeds = try await service.getAllBreeds()
+                if breeds.isEmpty {
+                    state = .empty("No breeds available")
+                }
+                else {
+                    self.sortBreeds()
+                    state = .loaded(results: breeds)
+                    self.breeds = breeds
+                }
+            }
+            catch {
+                state = .error(error)
+            }
         }
+
         
         /// Sort the breeds by name.
         func sortBreeds() {
-            // TODO: Implement method
+            self.breeds.sort { $0.name < $1.name }
         }
         
         /// Filter the breeds by the text in the search bar.
@@ -46,3 +60,5 @@ extension ContentView {
         case empty(String)
     }
 }
+
+
