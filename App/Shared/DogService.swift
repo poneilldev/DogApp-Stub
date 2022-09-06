@@ -8,32 +8,27 @@
 import Foundation
 
 protocol DogServiceProtocol {
-    func getAllBreeds() async throws -> BreedResource
-    func getRandomImage(for breed: Breed) async throws -> BreedImage
-    func getSubBreed(for breed: Breed) async throws -> BreedResource
+    func getAllBreeds() async throws -> [Breed]
+    func getSubBreed(for breed: Breed) async throws -> [Breed]
 }
 
+/// The service for getting all the different types of breeds of dogs.
 struct DogService: DogServiceProtocol {
-    private static let domain = "https://dog.ceo/api/"
+    private static let endpoint = "https://dog.ceo/api/"
     
-    func getAllBreeds() async throws -> BreedResource {
-        let url = URL(string: Self.domain.appending("breeds/list/all"))!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        return try decoder.decode(BreedResource.self, from: data)
+    /// This method makes a network call to retreive all breeds.
+    /// - Returns: An array of all available breeds.
+    func getAllBreeds() async throws -> [Breed] {
+        let url = URL(string: Self.endpoint.appending("breeds/list/all"))!
+        // TODO: Implement
+        return []
     }
     
-    func getRandomImage(for breed: Breed) async throws -> BreedImage {
-        let url = URL(string: Self.domain.appending("breed/\(breed.name)/images/random"))!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        return try decoder.decode(BreedImage.self, from: data)
-    }
-    
-    func getSubBreed(for breed: Breed) async throws -> BreedResource {
-        let url = URL(string: Self.domain.appending("breed/\(breed.name)/list"))!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        return try decoder.decode(BreedResource.self, from: data)
+    /// This method makes a network call to retreive all breeds.
+    /// - Parameter breed: The parent breed.
+    /// - Returns: An array of sub breeds for the parent breed.
+    func getSubBreed(for breed: Breed) async throws -> [Breed] {
+        let url = URL(string: Self.endpoint.appending("breed/\(breed.name)/list"))!
+        return []
     }
 }

@@ -12,30 +12,28 @@ extension ContentView {
     class ViewModel: ObservableObject {
         let service: DogService
         
+        /// All the breeds available.
         @Published private(set) var breeds: [Breed] = []
+        /// The state of the view.
         @Published private(set) var state: State = .loading
         
         init(_ service: DogService = .init()) {
             self.service = service
         }
         
+        /// Make a call to Dog Service to get all of the breeds.
         func loadAllBreeds() async {
-            self.state = .loading
-            do {
-                let resource = try await service.getAllBreeds()
-                self.breeds = resource.breeds
-                self.state = .loaded(results: self.breeds)
-            } catch let err {
-                self.state = .error(err)
-            }
+            // TODO: Implement method
         }
         
+        /// Sort the breeds by name.
         func sortBreeds() {
-            // TODO: Write Sorting methods
+            // TODO: Implement method
         }
         
+        /// Filter the breeds by the text in the search bar.
         func filterResults() {
-            // TODO: Write filter logic
+            // TODO: Implement method
         }
     }
 }
