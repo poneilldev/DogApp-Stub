@@ -29,6 +29,10 @@ struct ContentView: View {
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Dog Breeds")
+            .searchable(text: self.$viewModel.searchText)
+            .onChange(of: self.viewModel.searchText) { _ in
+                self.viewModel.filterResults()
+            }
         }
     }
 }

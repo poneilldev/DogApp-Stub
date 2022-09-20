@@ -21,7 +21,7 @@ class ContentView_ViewModelTests: XCTestCase {
     }
     
     func testLoadAllBreeds() async {
-        var testBreeds: [Breed] = [
+        let testBreeds: [Breed] = [
             Breed(name: "hound", subBreeds: []),
             Breed(name: "chewie", subBreeds: []),
             Breed(name: "dobermain", subBreeds: [])
@@ -36,7 +36,7 @@ class ContentView_ViewModelTests: XCTestCase {
     }
     
     func testLoadAllBreeds_1breed() async {
-        var testBreeds: [Breed] = [
+        let testBreeds: [Breed] = [
             Breed(name: "hound", subBreeds: []),
         ]
         
@@ -49,7 +49,7 @@ class ContentView_ViewModelTests: XCTestCase {
     }
     
     func testLoadAllBreeds_0breed() async {
-        var testBreeds: [Breed] = [
+        let testBreeds: [Breed] = [
         ]
         
         self.sut = ContentView.ViewModel(MockDogService(testBreeds))
@@ -61,7 +61,7 @@ class ContentView_ViewModelTests: XCTestCase {
     }
     
     func testSortBreeds() async {
-        var testBreeds: [Breed] = [
+        let testBreeds: [Breed] = [
             Breed(name: "hound", subBreeds: []),
             Breed(name: "chewie", subBreeds: []),
             Breed(name: "dobermain", subBreeds: [])
@@ -80,7 +80,7 @@ class ContentView_ViewModelTests: XCTestCase {
     }
     
     func testSortBreeds_1Breed() async {
-        var testBreeds: [Breed] = [
+        let testBreeds: [Breed] = [
             Breed(name: "hound", subBreeds: []),
         ]
         
@@ -95,7 +95,7 @@ class ContentView_ViewModelTests: XCTestCase {
     }
     
     func testSortBreeds_0Breed() async {
-        var testBreeds: [Breed] = [
+        let testBreeds: [Breed] = [
         ]
         
         
@@ -107,5 +107,35 @@ class ContentView_ViewModelTests: XCTestCase {
         // if sorted, then chewie should be first
         XCTAssertTrue(self.sut.breeds.isEmpty)
     }
+    
+    func testFilterResultsEmptySearch() async{
+        let testBreeds: [Breed] = [
+            Breed(name: "hound", subBreeds: []),
+            Breed(name: "chewie", subBreeds: []),
+            Breed(name: "dobermain", subBreeds: [])
+        ]
+        self.sut = ContentView.ViewModel(MockDogService(testBreeds))
+        await self.sut.loadAllBreeds()
+        self.sut.searchText = ""
+        self.sut.filterResults()
 
+        XCTAssertFalse(self.sut.breeds.isEmpty)
+    }
+    
+
+    func testFilterResultsNonEmptySearch() async{
+        let testBreeds: [Breed] = [
+            Breed(name: "hound", subBreeds: []),
+            Breed(name: "chewie", subBreeds: []),
+            Breed(name: "dobermain", subBreeds: [])
+        ]
+        self.sut = ContentView.ViewModel(MockDogService(testBreeds))
+        await self.sut.loadAllBreeds()
+        self.sut.searchText = "ch"
+        self.sut.filterResults()
+        
+        XCTAssertEqual(self.sut.filteredBreeds.count, 1)
+        
+        XCTAssertEqual(self.sut.filteredBreeds.first, testBreeds[1])
+    }
 }

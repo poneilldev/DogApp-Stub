@@ -14,8 +14,13 @@ extension ContentView {
         
         /// All the breeds available.
         @Published private(set) var breeds: [Breed] = []
+        
+        /// Filtered breeds
+        @Published private(set) var filteredBreeds: [Breed] = []
         /// The state of the view.
         @Published private(set) var state: State = .loading
+        
+        @Published var searchText = ""
         
         init(_ service: DogServiceProtocol = DogService()) {
             self.service = service
@@ -47,7 +52,13 @@ extension ContentView {
         
         /// Filter the breeds by the text in the search bar.
         func filterResults() {
-            // TODO: Implement method
+            guard !searchText.isEmpty else {
+                self.filteredBreeds = self.breeds
+                return
+            }
+            
+            self.filteredBreeds = self.breeds.filter { $0.name.contains(self.searchText.lowercased()) }
+            self.state = .loaded(results: self.filteredBreeds)
         }
     }
 }
